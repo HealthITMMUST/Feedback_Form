@@ -1,0 +1,1 @@
+web: gunicorn TechEnovators.wsgi --log-file -
