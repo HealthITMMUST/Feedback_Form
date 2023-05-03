@@ -1,15 +1,16 @@
 
 {% load i18n static %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
-<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
 <head>
 <title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static 'admin/css/base.css' %}{% endblock %}">
 {% if not is_popup and is_nav_sidebar_enabled %}
     <!-- CSS and JS files for bootstrap and custom CSS and JS -->
-    <link rel="stylesheet" type="text/css" href="{% static "admin/css/nav_sidebar.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/survey-stats.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/Chart.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/nav_sidebar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/survey-stats.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Chart.min.css' %}">
+    <script src="{% static 'node_modules/highcharts/highcharts.js' %}"></script>
     <script src="{% static 'admin/js/nav_sidebar.js' %}" defer></script>
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/Chart.min.js' %}"></script>
@@ -17,12 +18,12 @@
     <!-- END Custom CSS and JS -->
 {% endif %}
 {% block extrastyle %}{% endblock %}
-{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}">{% endif %}
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static 'admin/css/rtl.css' %}{% endblock %}">{% endif %}
 {% block extrahead %}{% endblock %}
 {% block responsive %}
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive.css" %}">
-    {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive_rtl.css" %}">{% endif %}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive.css' %}">
+    {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive_rtl.css' %}">{% endif %}
 {% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
 </head>
@@ -49,7 +50,7 @@
             {% endblock %}
             {% block userlinks %}
                 {% if site_url %}
-                    <a href="{{ site_url }}about">{% translate 'View site' %}</a> /
+                    <a href="{{ site_url }}home">{% translate 'View site' %}</a> /
                 {% endif %}
                 {% if user.is_active and user.is_staff %}
                     {% url 'django-admindocs-docroot' as docsroot %}
@@ -106,8 +107,10 @@
           <!-- The path check is to render the widget only when the user is logged in as admin -->
           {% if "login" not in request.path and "logout" not in request.path %}
               {% block stats_content %}
-          
-              <div class="app-survey-stats module">
+              
+                        
+                
+             <!-- <div class="app-survey-stats module">
                     <table class="survey-stats-table">
                       <caption class="section">
                         Survey Statistics
@@ -127,7 +130,8 @@
                               </Select>
                           </td>
                       </tr>
-                      <tr><td colspan="2"><div class="survey-stats-chart"><canvas id="votes_bar_chart"></canvas></div></td></tr>
+                      <tr><td colspan="2"><div class="survey-stats-chart">                                          
+                      <canvas id="votes_bar_chart"></canvas></div></td></tr>
                     </table>
                   </div>
               {% endblock %}

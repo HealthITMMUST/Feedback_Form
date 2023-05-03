@@ -47,7 +47,7 @@ class SurveyAdmin(nested_admin.NestedModelAdmin):
         published_on attribute form for Survey objects are collapsed by default.
         """
     fieldsets = [
-        ('Survey Name', {'fields': ['name']}),
+        ('Feedback Name', {'fields': ['name']}),
         ('When would you like to publish it?', {'fields': ['published_on'], 'classes': ['collapse']})
     ]
     inlines = [QuestionInLine]

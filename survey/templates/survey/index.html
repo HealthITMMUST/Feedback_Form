@@ -22,13 +22,13 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            {% if partial_view == "about" %}
+            {% if partial_view == "home" %}
                 <li class="nav-item active">
-                    <a class="nav-link survey-navbar-link" href="/survey/about/">About <span class="sr-only">(current)</span></a>
+                    <a class="nav-link survey-navbar-link" href="/survey/home/">Home<span class="sr-only">(current)</span></a>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link survey-navbar-link" href="/survey/about/">About</a>
+                    <a class="nav-link survey-navbar-link" href="/survey/home/">Home</a>
                 </li>
             {% endif %}
             {% if partial_view == "all_surveys" %}
@@ -40,14 +40,27 @@
                     <a class="nav-link survey-navbar-link" href="/survey/all_surveys/">Surveys</a>
                 </li>
             {% endif %}
+            {% if partial_view == "Chart" %}
+                <li class="nav-item active">
+                    <a class="nav-link survey-navbar-link" href="/survey/Chart/">SurveyAdmin <span class="sr-only">(current)</span></a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link survey-navbar-link" href="/survey/Chart/">SurveyAdmin</a>
+                </li>
+            {% endif %}
+            
             <li class="nav-item">
-                    <a class="nav-link survey-navbar-link" href="/admin/">Admin Page</a>
+                <a class="nav-link survey-navbar-link" href="/admin/">Admin Page</a>
             </li>
 
       </div>
     </nav>
-        {% if partial_view == 'about' %}
-            {% about %}
+        {% if partial_view == 'home' %}
+            {% home %}
+        {% endif %}
+        {% if partial_view == 'Chart' %}
+            {% Chart %}
         {% endif %}
         {% if partial_view == 'all_surveys' %}
             {% all_surveys %}

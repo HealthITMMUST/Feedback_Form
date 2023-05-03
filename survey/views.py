@@ -55,16 +55,17 @@ from django.template.loader_tags import register
 from django.views.decorators.http import require_http_methods
 from .models import Survey, Question, Choice, Participant
 from django.utils import timezone
+from django.db.models import Count
 from django.core import serializers
 import operator
 
-all_partial_views = ['about', 'all_surveys', 'survey_details', 'submit_success']
+all_partial_views = ['home', 'Chart','all_surveys', 'survey_details', 'submit_success']
 
 
 @require_http_methods(["GET"])
 def index(request, partial_view=None, pk=None):
     if partial_view is None:
-        partial_view = 'about'
+        partial_view = 'home'
         return render(request, 'survey/index.html', {"partial_view": partial_view, "pk": pk})
     elif all_partial_views.count(partial_view) == 0:
         raise Http404('Partial View not found!')
@@ -80,8 +81,12 @@ def all_surveys(context):
     return {'surveys': surveys}
 
 
-@register.inclusion_tag('survey/about.html', takes_context=True)
-def about(context):
+@register.inclusion_tag('survey/home.html', takes_context=True)
+def home(context):
+    return {}
+
+@register.inclusion_tag('survey/Chart.html', takes_context=True)
+def Chart(context):
     return {}
 
 
@@ -136,8 +141,8 @@ def get_popular_survey(request):
     return JsonResponse(popular_survey, safe=False)
 
 
-@require_http_methods(["GET"])
-def get_all_surveys(request):
+#@require_http_methods(["GET"])
+#def get_all_surveys(request):
     surveys = Survey.objects.all()
     questions = Question.objects.all()
     choices = Choice.objects.all()
@@ -145,3 +150,38 @@ def get_all_surveys(request):
     return JsonResponse({"surveys": serializers.serialize("json", surveys),
                          "questions": serializers.serialize("json", questions),
                          "choices": serializers.serialize("json", choices)})
+
+
+@require_http_methods(["GET"])
+def get_all_surveys(request):
+    surveys = Survey.objects.all()
+    questions = Question.objects.all()
+    choices = Choice.objects.all()
+    
+    # Get response data grouped by choice and question
+    response_data = Response.objects.values('choice__text', 'question__text').annotate(count=Count('id'))
+    
+    # Transform response data into series data for Highcharts
+    series_data = {}
+    for response in response_data:
+        question = response['question__text']
+        choice = response['choice__text']
+        count = response['count']
+        if question not in series_data:
+            series_data[question] = []
+        series_data[question].append({'name': choice, 'y': count})
+    
+    # Transform series data into Highcharts format
+    chart_data = []
+    chart_type = request.GET.get('chart_type', 'column')
+    for question, data in series_data.items():
+        chart_data.append({
+            'name': question,
+            'data': data,
+            'type': chart_type
+        })
+
+    return JsonResponse({"surveys": serializers.serialize("json", surveys),
+                         "questions": serializers.serialize("json", questions),
+                         "choices": serializers.serialize("json", choices),
+                         "chart_data": chart_data})
