@@ -1,0 +1,4 @@
+*.sqlite3
+/root/**
+/survey/migrations/**
+.env
