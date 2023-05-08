@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'sample_survey.wsgi.application'
 DATABASES = {
       'default': {
         'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'Facility_Feedback',  
+        'NAME': 'feedback',
         'USER': 'root',  
-        'PASSWORD': 'amiani',  
+        'PASSWORD': 'Root12Root.',
         'HOST': '127.0.0.1',  
         'PORT': '3306',  
         'OPTIONS': {  

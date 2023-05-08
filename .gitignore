@@ -140,3 +140,6 @@ myenv*
 #node
 node_modules*
 *.idea
+root*
+survey/migrations*
+**/__pycache*
