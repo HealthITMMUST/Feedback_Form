@@ -139,3 +139,4 @@ myenv*
 
 #node
 node_modules*
+*.idea
