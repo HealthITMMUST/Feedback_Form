@@ -52,6 +52,8 @@ This endpoint can also be used as a web hook in future. Currently it is used wit
 from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponse, JsonResponse
 from django.template.loader_tags import register
+from rest_framework import viewsets
+from rest_framework import permissions
 from django.views.decorators.http import require_http_methods
 from .models import Survey, Question, Choice, Participant
 from django.utils import timezone
@@ -59,7 +61,8 @@ from django.db.models import Count
 from django.core import serializers
 import operator
 
-all_partial_views = ['home', 'Chart','all_surveys', 'survey_details', 'submit_success']
+
+all_partial_views = ['login','facility','home', 'Chart','all_surveys', 'survey_details', 'submit_success']
 
 
 @require_http_methods(["GET"])
@@ -84,6 +87,11 @@ def all_surveys(context):
 @register.inclusion_tag('survey/home.html', takes_context=True)
 def home(context):
     return {}
+
+@register.inclusion_tag('survey/home.html', takes_context=True)
+def login(context):
+    return {}
+
 
 @register.inclusion_tag('survey/Chart.html', takes_context=True)
 def Chart(context):
@@ -141,8 +149,8 @@ def get_popular_survey(request):
     return JsonResponse(popular_survey, safe=False)
 
 
-#@require_http_methods(["GET"])
-#def get_all_surveys(request):
+@require_http_methods(["GET"])
+def get_all_surveys(request):
     surveys = Survey.objects.all()
     questions = Question.objects.all()
     choices = Choice.objects.all()

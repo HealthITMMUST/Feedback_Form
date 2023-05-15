@@ -59,6 +59,12 @@
         {% if partial_view == 'home' %}
             {% home %}
         {% endif %}
+        {% if partial_view == 'login' %}
+           {% login %}
+        {% endif %}
+        {% if partial_view == 'facility' %}
+           {% facility %}
+        {% endif %}
         {% if partial_view == 'Chart' %}
             {% Chart %}
         {% endif %}

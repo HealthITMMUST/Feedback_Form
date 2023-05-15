@@ -7,6 +7,7 @@ urlpatterns = [
     # Default path is /survey/ which invokes index view without any params
     path('', views.index, name="index"),
 
+
     # API GET endpoint for returning popular survey among existing surveys.
     # This endpoint can also be used as a web hook in future. Currently it is used within the application.
     path('get_popular_survey/', views.get_popular_survey, name="get_popular_survey"),
