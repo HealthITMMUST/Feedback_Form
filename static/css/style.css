@@ -1,0 +1,115 @@
+/* variables declared here - these are the colors for our pages, as well as the font stacks and sizes. */
+:root {
+  --darkest: #011526;
+  --darker: #024059;
+  --light: #16A085;
+  --orange: #D92525;
+--plum: #4b0d49;
+--hotmag: #ff17e4;
+--hovercolor: #e310cb;
+  --white: #f7f8fa;
+  --font-size: 1.5rem;
+  --average: "Average Sans", monospace;
+  --sans: "Open Sans", sans-serif;
+}
+
+*{
+  color: var(--white);
+}
+.bg{
+  background: url(C:\Users\margaret\Desktop\LOGIN page\img\369.jpg)no-repeat;
+  width: 100%;
+  height: 100vh;
+}
+label{
+  font-family: var(--average);
+  color:black;
+  font-size: large;
+  
+}
+::placeholder{
+  color: black;
+}
+.form-container{
+  border: 1px solid #fff;
+  padding: 30px 60px;
+  box-shadow:0px 0px 10px 0px rgba(133, 125, 125, 0.75) ;
+  border-radius: 5px;
+
+}
+.container {
+  max-width: 500px;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+#username , #password{
+display: flex;
+align-items: center;
+border: 1px solid rgb(241, 223, 223);
+padding: 5px;
+justify-content:left;
+gap: 10px;
+
+}
+svg{
+
+border-radius: 2px;
+}
+.btn {
+  display: inline-block;
+  background: #024059;
+  color: #fff;
+  border: none;
+  padding: px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: var(--average);
+  
+}
+.btn :last-child{
+  background: #024059;
+}
+a{
+  text-decoration: none;
+}
+
+#login{
+  background-color: var(--light);
+  text-align: center;
+}
+#login :first-child{
+  background-color: var(--light);
+}
+#here{
+  margin-top: 20px;
+  background-color: #024059;
+  text-align: center;
+  font-weight: bolder;
+}
+#here a{
+font-weight: 900;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: var(--sans);
+  
+}
+h1{
+  text-decoration: underline;
+  
+}
+.form-control{
+  border: none;
+  height: fit-content;
+  padding: 3px;
+}
