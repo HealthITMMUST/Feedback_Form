@@ -1,4 +1,5 @@
-"""Create Views for the application
+"""
+Create Views for the application
 
 Here you can create views for the survey application.
 Each view will be either mapped directly to a URL in the routing
@@ -59,20 +60,31 @@ from django.db.models import Count
 from django.core import serializers
 import operator
 
-all_partial_views = ['home', 'Chart','all_surveys', 'survey_details', 'submit_success']
+all_partial_views = ['login','facility','home', 'Chart','all_surveys', 'survey_details', 'submit_success']
 
 
+#@require_http_methods(["GET"])
+#def index(request, partial_view=None, pk=None):
+    #if partial_view is None:
+        #partial_view = 'home'
+        #return render(request, 'survey/index.html', {"partial_view": partial_view, "pk": pk})
+    #elif all_partial_views.count(partial_view) == 0:
+        #r#aise Http404('Partial View not found!')
+    #elif partial_view == "survey_details" and pk is None:
+        #raise Http404('Invalid Address! Page Not Found')
+    #else:
+        #return render(request, 'survey/index.html', {"partial_view": partial_view, "pk": pk})
 @require_http_methods(["GET"])
-def index(request, partial_view=None, pk=None):
+def login(request, partial_view=None, pk=None):
     if partial_view is None:
         partial_view = 'home'
-        return render(request, 'survey/index.html', {"partial_view": partial_view, "pk": pk})
+        return render(request, 'survey/login.html', {"partial_view": partial_view, "pk": pk})
     elif all_partial_views.count(partial_view) == 0:
         raise Http404('Partial View not found!')
     elif partial_view == "survey_details" and pk is None:
         raise Http404('Invalid Address! Page Not Found')
     else:
-        return render(request, 'survey/index.html', {"partial_view": partial_view, "pk": pk})
+        return render(request, 'survey/login.html', {"partial_view": partial_view, "pk": pk})
 
 
 @register.inclusion_tag('survey/surveys.html', takes_context=True)
@@ -84,6 +96,11 @@ def all_surveys(context):
 @register.inclusion_tag('survey/home.html', takes_context=True)
 def home(context):
     return {}
+
+@register.inclusion_tag('survey/facility.html', takes_context=True)
+def facility(context):
+    return {}
+
 
 @register.inclusion_tag('survey/Chart.html', takes_context=True)
 def Chart(context):
