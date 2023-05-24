@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'facility.css'%}">
+    <link href="{% static 'style.css'%}" type="text/css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Average+Sans&family=Open+Sans&display=swap"
+     rel="stylesheet">
+    <title>Facility form</title>
+</head>
+<body>
+    <div class="header">
+        <img src="https://eiddash.nascop.org/img/nascoplogo.png" >
+    </div>
+    <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-4 col-sm-4 col-xs-12"></div>
+                        <div class="col-md-4 col-sm-4 col-xs-12"></div>
+                        <header class="header">
+                          <h1 style="color:black;"> Feedback Form</h1>
+                        </header>
+                        <form class="form-container">
+                          
+                            <div class="form-group">
+ <label for="Inputusername" class="form-label" style=" font-weight: 800; font-size:medium; ">Facility:</label> <br>
+
+  <div id="username">
+    <input id="search" name="myURL" type="url" placeholder="Search for facility" />
+</div>
+ 
+</div><br>
+
+                            <div class="form-group">
+<label for="InputPassword1" class="form-label"  style="font-weight: 800; font-size:medium; "> Batch no:</label><br>
+<div id="password">
+    <svg height="20px" xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+      </svg>
+      <input type="password" class="form-control" id="Batchno" placeholder="Password" style="height: 24px;"></div><br>
+
+</div> 
+  
+                            
+<div id="login">
+<button type="LOGIN" class="btn btn-success btn-block" >LOGIN</button><br>
+</div>
+<div id="here">
+    <button type="LOGIN" class="btn btn-success btn-block"> <a href="index.html"> Labaratory Login</a> </button>
+    </div>         
+    </form>
+                          
+                        
+    <div>
+        <h4 style="color: gray; text-align: center; font-weight: 200; padding-top: 30px;"> <strong style="color: gray; text-align: center; font-weight: 200;">© NASCOP</strong> - 1987 - 2023 | All Rights Reserved.</h4>
+     </div>
+
+            </div>
+    
+          
+</body>
+</html>
