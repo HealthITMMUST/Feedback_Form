@@ -51,6 +51,7 @@ This endpoint can also be used as a web hook in future. Currently it is used wit
 
 from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponse, JsonResponse
+from django.core import serializers as core_serializers
 from django.template.loader_tags import register
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -60,15 +61,33 @@ from django.utils import timezone
 from django.db.models import Count
 from django.core import serializers
 import operator
+from django.contrib.auth.decorators import login_required
 
 
 all_partial_views = ['login','facility','home', 'Chart','all_surveys', 'survey_details', 'submit_success']
 
-
+'''@login_required
+def home(request):
+    return render(request, "registration/success.html", {})
+ 
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username = username, password = password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+    '''
 @require_http_methods(["GET"])
 def index(request, partial_view=None, pk=None):
     if partial_view is None:
-        partial_view = 'home'
+        partial_view = 'index'
         return render(request, 'survey/index.html', {"partial_view": partial_view, "pk": pk})
     elif all_partial_views.count(partial_view) == 0:
         raise Http404('Partial View not found!')
@@ -88,10 +107,13 @@ def all_surveys(context):
 def home(context):
     return {}
 
-@register.inclusion_tag('survey/home.html', takes_context=True)
+@register.inclusion_tag('survey/login.html', takes_context=True)
 def login(context):
     return {}
 
+@register.inclusion_tag('survey/facility.html', takes_context=True)
+def facility(context):
+    return {}
 
 @register.inclusion_tag('survey/Chart.html', takes_context=True)
 def Chart(context):
@@ -160,6 +182,8 @@ def get_all_surveys(request):
                          "choices": serializers.serialize("json", choices)})
 
 
+
+'''
 @require_http_methods(["GET"])
 def get_all_surveys(request):
     surveys = Survey.objects.all()
@@ -193,3 +217,4 @@ def get_all_surveys(request):
                          "questions": serializers.serialize("json", questions),
                          "choices": serializers.serialize("json", choices),
                          "chart_data": chart_data})
+ '''                   

@@ -32,9 +32,10 @@ label{
 }
 .form-container{
     border: 1px solid #fff;
-    padding: 30px 60px;
-    
+    padding: 30px 60px;    
     border-radius: 5px;
+    width:1200px;
+    background-color: aliceblue;
 
 }
 .container {
@@ -44,6 +45,7 @@ label{
     min-height: 300px;
     padding: 30px;
     border-radius: 5px;
+    background-color: #011526;
   }
 
   #password, #username{

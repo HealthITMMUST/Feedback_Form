@@ -1,7 +1,9 @@
 
 
 from django.urls import path
+from django.contrib import admin
 from . import views
+from .views import *
 
 urlpatterns = [
     # Default path is /survey/ which invokes index view without any params
@@ -28,4 +30,6 @@ urlpatterns = [
 
     # This is the generic route for rendering partial views with id parameter
     path('<str:partial_view>/<int:pk>', views.index, name="index/partial_view/id"),
+    path('/login/',views.login),
+    path('/login/facility',views.facility),
 ]

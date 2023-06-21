@@ -6,48 +6,68 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
   </head>
   <body>
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div>
+      <label for="surveySelect">Select a Survey:</label>
+      <select id="surveySelect"></select>
+    </div>
+    <div id="chartContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
     <script>
-      Highcharts.chart('container', {
+       fetch('http://127.0.0.1:8000/get_all_surveys/')
+       .then(response => response.json())
+       .then(data => {
+        const surveysArray = JSON.parse(data.surveys);
+        const questionsArray = JSON.parse(data.questions);
+        const choicesArray = JSON.parse(data.choices);
+
+        const surveyNames = surveysArray.map(survey => survey.fields.name);
+        const questions = questionsArray.map(question => question.fields.question_text);
+        const choices = choicesArray.map(choice => choice.fields.choice_text);
+
+        const surveySelect = document.getElementById('surveySelect');
+          surveyNames.forEach((surveyName, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.text = surveyName;
+            surveySelect.appendChild(option);
+          });
+
+          surveySelect.addEventListener('change', function () {
+            const selectedSurveyIndex = parseInt(this.value);
+            const selectedChoices = choices[selectedSurveyIndex];
+
+
+        const chartConfig = {
+          chart: {
+        type: 'line'
+      },
+      title: {
+        text: surveyNames
+      },
+      xAxis: {
+        categories: questions,
         title: {
-          text: 'KEMRI ANNUAL LAB SURVEYS',
-          x: -20
-        },
-        subtitle: {
-          text: 'KEMRI SURVEYS',
-          x: -20
-        },
-        xAxis: {
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yAxis: {
-          title: {
-            text: 'Respondents'
-          },
-          plotLines: [{
-            value: 0,
-            width: 1,
-            color: '#808080'
-          }]
-        },
-        tooltip: {
-          valueSuffix: '°C'
-        },
-        series: [{
-          name: 'Kisumu Central',
-          data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-        }, {
-          name: 'Kisumu West',
-          data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-        }, {
-          name: 'Kisumu East',
-          data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-        }, {
-          name: 'Kisumu North',
-          data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-        }]
-      });
+          text: 'Questions'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Choices'
+        }
+      },
+      series: [{
+                name: 'Choices',
+                data: selectedChoices.map(choice => [choice])
+              }]
+    };
+
+    // Step 5: Render the chart
+    Highcharts.chart('chartContainer', chartConfig);
+  });
+})
+  .catch(error => {
+    console.error('Error retrieving data:', error);
+  });
+      
     </script>
   </body>
 </html>

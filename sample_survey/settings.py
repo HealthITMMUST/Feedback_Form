@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'survey.apps.SurveyConfig',
     'nested_admin',
     'rest_framework',
+    'survey',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,14 +51,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',  # Add the origins from which you want to allow CORS requests
+]
+CORS_ALLOWED_METHODS = [
+    'GET',  # Add any other allowed methods
 ]
 
 ROOT_URLCONF = 'sample_survey.urls'
 
-# Login & Logout URLs
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/home/'
-LOGOUT_REDIRECT_URL = '/login/'
 
 TEMPLATES = [
     {
