@@ -37,10 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'nested_admin',
     'rest_framework',
     'survey',
     'corsheaders',
+=======
+    'survey',
+    'nested_admin'
+>>>>>>> f79a7e3591a257e6fa7ad63de4a6ca50749b3a7f
 ]
 
 MIDDLEWARE = [
@@ -137,6 +142,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'root')
 
