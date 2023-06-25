@@ -37,15 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'nested_admin',
     'rest_framework',
     'survey',
     'corsheaders',
-=======
-    'survey',
-    'nested_admin'
->>>>>>> f79a7e3591a257e6fa7ad63de4a6ca50749b3a7f
+    
 ]
 
 MIDDLEWARE = [

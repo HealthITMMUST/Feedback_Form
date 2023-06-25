@@ -49,7 +49,7 @@ This endpoint can also be used as a web hook in future. Currently it is used wit
 
 """
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.http import Http404, HttpResponse, JsonResponse
 from django.core import serializers as core_serializers
 from django.template.loader_tags import register
@@ -181,7 +181,23 @@ def get_all_surveys(request):
                          "questions": serializers.serialize("json", questions),
                          "choices": serializers.serialize("json", choices)})
 
+def survey_chart(request, survey_id):
+    survey = get_object_or_404(Survey, pk=survey_id)
+    questions = Question.objects.filter(survey=survey)
+    
+    question_text = [question.text for question in questions]
+    choice_text = [question.choices for question in questions]
+    
+    chart_data = {
+        'name': survey.name,
+        'question_text': question_text,
+        'choice_text': choice_text,
+    }
+    
+    return JsonResponse(chart_data)
 
+        
+        
 
 '''
 @require_http_methods(["GET"])

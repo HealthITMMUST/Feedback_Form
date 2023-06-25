@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Highcharts Example</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  </head>
+  <body>
+    <div>
+      <label for="surveySelect">Select a Survey:</label>
+      <select id="surveySelect"></select>
+    </div>
+    <div id="chartContainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <script>
+       fetch('http://127.0.0.1:8000/get_all_surveys/')
+       .then(response => response.json())
+       .then(data => {
+        const surveysArray = JSON.parse(data.surveys);
+        const questionsArray = JSON.parse(data.questions);
+        const choicesArray = JSON.parse(data.choices);
+
+        const surveyNames = surveysArray.map(survey => survey.fields.name);
+        const questions = questionsArray.map(question => question.fields.question_text);
+        const choices = choicesArray.map(choice => choice.fields.choice_text);
+
+        const surveySelect = document.getElementById('surveySelect');
+          surveyNames.forEach((surveyName, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.text = surveyName;
+            surveySelect.appendChild(option);
+          });
+
+          surveySelect.addEventListener('change', function () {
+            const selectedSurveyIndex = parseInt(this.value);
+            const selectedChoices = choices[selectedSurveyIndex];
+
+
+        const chartConfig = {
+          chart: {
+        type: 'line'
+      },
+      title: {
+        text: surveyNames
+      },
+      xAxis: {
+        categories: questions,
+        title: {
+          text: 'Questions'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Choices'
+        }
+      },
+      series: [{
+                name: 'Choices',
+                data: selectedChoices.map(choice => [choice])
+              }]
+    };
+
+    // Step 5: Render the chart
+    Highcharts.chart('chartContainer', chartConfig);
+  });
+})
+  .catch(error => {
+    console.error('Error retrieving data:', error);
+  });
+      
+    </script>
+  </body>
+</html>

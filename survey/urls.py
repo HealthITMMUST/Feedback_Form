@@ -30,6 +30,8 @@ urlpatterns = [
 
     # This is the generic route for rendering partial views with id parameter
     path('<str:partial_view>/<int:pk>', views.index, name="index/partial_view/id"),
-    path('/login/',views.login),
-    path('/login/facility',views.facility),
+    path('login/',views.login),
+    path('login/facility',views.facility),
+    path('survey/chart/<int:survey_id>/', views.survey_chart, name='survey_chart'),
+
 ]

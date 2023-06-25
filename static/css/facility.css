@@ -17,7 +17,8 @@
     color: var(--white);
 }
 .bg{
-    background: url(C:\Users\margaret\Desktop\LOGIN page\img\369.jpg)no-repeat;
+    /*background: url(C:\Users\margaret\Desktop\LOGIN page\img\369.jpg);
+    background:no-repeat;*/
     width: 100%;
     height: 100vh;
 }
@@ -34,8 +35,7 @@ label{
     border: 1px solid #fff;
     padding: 30px 60px;    
     border-radius: 5px;
-    width:1200px;
-    background-color: aliceblue;
+    width:425px;
 
 }
 .container {
@@ -45,7 +45,7 @@ label{
     min-height: 300px;
     padding: 30px;
     border-radius: 5px;
-    background-color: #011526;
+    
   }
 
   #password, #username{
